@@ -1,16 +1,23 @@
-import openai
-from config import OPENAI_API_KEY
+from config import HUGGINGFACE_API_TOKEN
+import requests
 
-openai.api_key = OPENAI_API_KEY
+HUGGINGFACE_API_TOKEN = HUGGINGFACE_API_TOKEN
+
+API_URL = "https://api-inference.huggingface.co/models/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF"
+headers = {"Authorization": f"Bearer {HUGGINGFACE_API_TOKEN}"}
 
 def generate_funny_news(headline):
-    prompt = f"Create a short, humorous news article based on this headline: '{headline}'"
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        max_tokens=100,
-        n=1,
-        stop=None,
-        temperature=0.8,
-    )
-    return response.choices[0].text.strip()
+    prompt = f"Create a short, humorous news article based on this headline: '{headline}'\n\nFunny Article:"
+    payload = {
+        "inputs": prompt,
+        "parameters": {
+            "max_length": 500,
+            "temperature": 0.8,
+            "num_return_sequences": 1
+        }
+    }
+    response = requests.post(API_URL, headers=headers, json=payload)
+    if response.status_code != 200:
+        return "Error: Unable to generate funny news at the moment."
+    
+    return response.json()[0]['generated_text'].split("Funny Article:")[1].strip()
