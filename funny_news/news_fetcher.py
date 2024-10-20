@@ -6,7 +6,11 @@ def fetch_news():
     response = requests.get(NEWS_SOURCE_URL)
     soup = BeautifulSoup(response.content, 'lxml-xml')
     news_items = soup.findAll('item')
-    return [item.title.text for item in news_items[:NUM_NEWS_ITEMS]]
+    titles = [item.title.text for item in news_items[:NUM_NEWS_ITEMS]]
+    articles = [item.description.text for item in news_items[:NUM_NEWS_ITEMS]]
+    print('titles: ', titles)
+    # print('articles: ', articles)
+    return {'titles': titles, 'articles': articles}
 
 
 def fetch_political_news():

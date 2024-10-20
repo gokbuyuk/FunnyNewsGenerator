@@ -1,13 +1,21 @@
-from config import HUGGINGFACE_API_TOKEN
+from config import *
 import requests
+import random
 
-HUGGINGFACE_API_TOKEN = HUGGINGFACE_API_TOKEN
+# Adjectives to spice up the headlines
+funny_adjectives = [
+    "hilarious", "preposterous", "mind-boggling", "earth-shattering",
+    "ludicrous", "side-splitting", "uproarious", "knee-slapping",
+    "gut-busting", "riotous", "farcical", "sideswiping", "bonkers"
+]
 
-API_URL = "https://api-inference.huggingface.co/models/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF"
+
 headers = {"Authorization": f"Bearer {HUGGINGFACE_API_TOKEN}"}
 
-def generate_funny_news(headline):
-    prompt = f"Create a short, humorous news article based on this headline: '{headline}'\n\nFunny Article:"
+def generate_funny_news(news_article):
+    funny_adj = random.choice(funny_adjectives)
+
+    prompt = f"Write content to this news headline: {news_article} in a {funny_adj} way. \n\n Funny Article:"
     payload = {
         "inputs": prompt,
         "parameters": {
@@ -18,6 +26,9 @@ def generate_funny_news(headline):
     }
     response = requests.post(API_URL, headers=headers, json=payload)
     if response.status_code != 200:
+        print("Error: Unable to generate funny news at the moment.")
         return "Error: Unable to generate funny news at the moment."
     
-    return response.json()[0]['generated_text'].split("Funny Article:")[1].strip()
+    funny_article = response.json()[0]['generated_text'].split("Funny Article:")[1].strip()
+    print('funny_article: ', funny_article)
+    return funny_article
