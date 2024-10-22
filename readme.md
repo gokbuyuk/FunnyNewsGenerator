@@ -7,7 +7,7 @@ This package generates humorous news articles based on real daily news headlines
 1. Clone this repository:
    ```
    git clone https://github.com/gokbuyuk/FunnyNewsGenerator.git
-   cd funny-news-generator
+   cd FunnyNewsGenerator
    ```
 
 2. Create a virtual environment and activate it:
