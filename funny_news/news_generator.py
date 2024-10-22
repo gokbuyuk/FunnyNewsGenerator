@@ -12,15 +12,15 @@ funny_adjectives = [
 
 headers = {"Authorization": f"Bearer {HUGGINGFACE_API_TOKEN}"}
 
-def generate_funny_news(news_article):
+def generate_funny_news(headline):
     funny_adj = random.choice(funny_adjectives)
 
-    prompt = f"Write content to this news headline: {news_article} in a {funny_adj} way. \n\n Funny Article:"
+    prompt = f"Act like a journalist, and write a satirical news story under 200 characters for this headline: '{headline}'. \n\n Funny Article:"
     payload = {
         "inputs": prompt,
         "parameters": {
             "max_length": 500,
-            "temperature": 0.8,
+            "temperature": 0.7,
             "num_return_sequences": 1
         }
     }
@@ -32,3 +32,5 @@ def generate_funny_news(news_article):
     funny_article = response.json()[0]['generated_text'].split("Funny Article:")[1].strip()
     print('funny_article: ', funny_article)
     return funny_article
+
+

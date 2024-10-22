@@ -37,6 +37,36 @@ def fetch_political_news():
     
     return political_news
 
+# def fetch_google_news():
+#     # URL for Google News RSS feed
+#     url = "https://news.google.com/rss"
+    
+#     # Parse the RSS feed
+#     feed = feedparser.parse(url)
+    
+#     articles = []
+    
+#     for entry in feed.entries:
+#         article = {
+#             'title': entry.title,
+#             'link': entry.link,
+#             'published': entry.published
+#         }
+        
+#         # Fetch the full article content (note: this might not work for all news sites)
+#         try:
+#             response = requests.get(entry.link)
+#             soup = BeautifulSoup(response.text, 'html.parser')
+            
+#             # This is a simple example and might need to be adjusted based on the structure of the news sites
+#             article['content'] = soup.find('article').get_text()
+#         except:
+#             article['content'] = "Could not fetch article content"
+        
+#         articles.append(article)
+    
+#     return articles
+
 if __name__ == "__main__":
 
     # Example usage:
