@@ -21,9 +21,9 @@ This package generates humorous news articles based on real daily news headlines
    pip install -r requirements.txt
    ```
 
-4. Copy `config.example.py` to `config.py` and add your OpenAI API key:
+4. Copy `config_template.py` to `config.py` and add your OpenAI API key:
    ```
-   cp config.example.py config.py
+   cp config_template.py config.py
    # Edit config.py and add your API key
    ```
 
